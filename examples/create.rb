@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), '../lib/haki')
 
-MACHINE_IP = '10.60.1.75'
-ENDPOINT_IP = '10.60.20.214'
+MACHINE_IP = 'HYPERVISOR_IP'
+ENDPOINT_IP = 'API_IP'
 ENDPOINT_USER = 'admin'
 ENDPOINT_PASS = 'xabiquo'
 
@@ -44,8 +44,10 @@ vm = cloud.create_virtual_machine(vapp, t)
 puts "VM created"
 
 #Deploy!
-puts "Deploy!"
+monitor = context.getMonitoringService().getVirtualApplianceMonitor()
+puts "Deploying..."
 vapp.deploy()
+monitor.awaitCompletionUndeploy(vapp)
 
 puts "Done!"
 
