@@ -98,7 +98,7 @@ module Haki
     end
     
     def list_templates(vdc)
-      vdc.listAvailableTemplate()
+      vdc.listAvailableTemplates()
     end
   end
 end
