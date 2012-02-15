@@ -17,8 +17,10 @@ props_builder="org.jclouds.abiquo.AbiquoPropertiesBuilder"
 System.setProperty("abiquo.contextbuilder", context_builder)
 System.setProperty("abiquo.propertiesbuilder", props_builder)
 
-require File.expand_path(File.join(File.dirname(__FILE__), 'infrastructure'))
-require File.expand_path(File.join(File.dirname(__FILE__), 'cloud'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'controllers/infrastructure_controller'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'controllers/cloud_controller'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'tester/test_launcher'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'tester/cloud_tester'))
 
 
 module Haki  

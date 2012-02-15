@@ -14,6 +14,9 @@ module Haki
     def initialize(context)
       @context = context
     end
+    
+    
+    #VDCs
     def create_virtual_datacenter(datacenter, enterprise, type, name, netname, netaddress, netmask, netgateway)
       network = PrivateNetwork.builder(@context) \
                   .name(netname) \
@@ -45,6 +48,8 @@ module Haki
       vdc.delete()
     end
     
+    
+    #VAPPs
     def create_virtual_appliance(vdc, name)
       vapp = VirtualAppliance.builder(@context, vdc) \
              .name(name) \
@@ -68,6 +73,8 @@ module Haki
       vapp.delete()
     end
     
+    
+    #VMs
     def create_virtual_machine(vapp, template)
       vm = VirtualMachine.builder(@context, vapp, template).build()
       vm.save()
@@ -89,6 +96,8 @@ module Haki
       vm.delete()
     end
     
+    
+    #Templates
     def refresh_template_repository(enterprise, datacenter)
       enterprise.refreshTemplateRepository(datacenter)
     end

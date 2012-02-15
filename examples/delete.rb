@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), '../lib/haki')
 
-ENDPOINT_IP = 'API_IP'
+ENDPOINT_IP = '10.60.20.214'
 ENDPOINT_USER = 'admin'
 ENDPOINT_PASS = 'xabiquo'
 
