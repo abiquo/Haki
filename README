@@ -1,0 +1,25 @@
+Requirements
+============
+- JRuby
+- Maven
+- Git
+
+Installation
+============
+- Compile abiquo model
+# git clone git://github.com/abiquo/abiquo.git
+# cd abiquo/model
+# mvn clean install
+
+- Compile jclouds-abiquo
+# git clone git://github.com/abiquo/jclouds-abiquo.git
+# cd abiquo/model
+# mvn clean install
+
+- Configure Haki
+# git clone git://github.com/abiquo/Haki.git
+# cd Haki
+# mvn clean install
+
+
+Then you should be able to execute any example, modifying the parameters.
