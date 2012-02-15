@@ -1,8 +1,8 @@
 require File.join(File.dirname(__FILE__), '../lib/haki')
 
-ENDPOINT_IP = '10.60.20.214'
-ENDPOINT_USER = 'admin'
-ENDPOINT_PASS = 'xabiquo'
+ENDPOINT_IP = 'IP'
+ENDPOINT_USER = 'USER'
+ENDPOINT_PASS = 'PASSWORD'
 
 
 include Haki
