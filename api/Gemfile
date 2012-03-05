@@ -1,0 +1,8 @@
+source :rubygems
+
+gem 'sinatra'
+gem 'rack-protection'
+gem 'json'
+gem 'sqlite3'
+gem 'uuid'
+gem 'json-schema'

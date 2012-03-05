@@ -1,5 +1,5 @@
 import org.jclouds.abiquo.domain.infrastructure.Datacenter
-import org.jclouds.abiquo.domain.infrastructure.Rack
+#import org.jclouds.abiquo.domain.infrastructure.Rack     #Conflicts with Rack middleware
 import org.jclouds.abiquo.domain.infrastructure.Machine
 
 import org.jclouds.abiquo.predicates.infrastructure.DatacenterPredicates
@@ -44,7 +44,7 @@ module Haki
     
     #Racks
     def create_rack(dc, name, vlan_id_min=2, vlan_id_max=4096, nrsq=10)
-      rack = Rack.builder(@context, dc) \
+      rack = org.jclouds.abiquo.domain.infrastructure.Rack.builder(@context, dc) \
       .name(name) \
       .vlanIdMin(vlan_id_min) \
       .vlanIdMax(vlan_id_max) \
@@ -92,7 +92,7 @@ module Haki
     end
     
     def list_machines(rack = nil)
-      return rack.listMachines() unless rack
+      return rack.listMachines() if rack
 
       administration = @context.getAdministrationService()
       administration.listMachines() 

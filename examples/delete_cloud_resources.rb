@@ -17,7 +17,8 @@ vapps = cloud.list_virtual_appliances()
 monitor = context.getMonitoringService().getVirtualApplianceMonitor()
 
 puts "Undeploy..."
-vapps.each {|vapp| vapp.undeploy()}
+puts vapps
+vapps.each {|vapp| puts "NULL" unless vapp; vapp.undeploy()}
 
 vapps.each do |vapp|
   monitor.awaitCompletionUndeploy(vapp)

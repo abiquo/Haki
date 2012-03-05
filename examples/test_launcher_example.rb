@@ -7,31 +7,54 @@ ENDPOINT_PASS = 'PASSWORD'
 
 include Haki
 
-cloud_test = Haki::CloudTest.new :endpoint_ip => ENDPOINT_IP,
-  :user => ENDPOINT_USER,
-  :pass => ENDPOINT_PASS,
-  :hyp_type => HypervisorType::VMX_04,
-  :num_vdcs => 1,
-  :num_vapps => 2,
-  :num_vms => 2,
-  :template => 'm0n0wall'
+test = {"endpoint" => {
+    "ip" => ENDPOINT_IP,
+    "user" => ENDPOINT_USER,
+    "password" => ENDPOINT_PASS
+  },
+    "test" => {
+      #"hypervisor" => "kvm",
+      #"template" => "Core",
+      "vdcs" => "1",
+      "vapps" => "10",
+      "vms" => "2"
+  }
+}
+
+cloud_test = Haki::CloudTest.new test
   
-puts "Create test env"
-cloud_test.create
-pp cloud_test.status
 
-puts "Deploy"
-cloud_test.deploy
-cloud_test.await_end_deploy
-pp cloud_test.status
+for i in 1..10 do
+  puts "ITERACIO #{i}"
+  puts "Create test env"
+  cloud_test.create
+  
+  puts "Deploy all"
+  #10 retries
+  for i in 1..10 do
+    cloud_test.deploy
+    cloud_test.await_end_deploy
+    
+    deployed = true
+    cloud_test.status[:vms].each {|k,v| deployed = false if v != 'ON'}
+    break if deployed
+    puts "Failed! Retry..."
+  end
+  
+  puts "Undeploy all"
+  #10 retries
+  for i in 1..10 do
+    cloud_test.undeploy
+    cloud_test.await_end_undeploy
 
-puts "Undeploy"
-cloud_test.undeploy
-cloud_test.await_end_undeploy
-pp cloud_test.status
-
-puts "Delete"
-cloud_test.destroy
-pp cloud_test.status
+    undeployed = true
+    cloud_test.status[:vms].each {|k,v| undeployed = false if v != 'NOT_ALLOCATED'}
+    break if undeployed
+    puts "Failed! Retry..."
+  end
+  
+  puts "Delete all"
+  cloud_test.destroy
+end
 
 cloud_test.context.close

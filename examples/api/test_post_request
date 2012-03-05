@@ -1,0 +1,14 @@
+test={
+  "endpoint" : {
+    "ip" : "ABIQUO API IP",
+    "user" : "USER",
+    "password" : "PASSWORD"
+  },
+  "test" : {
+    "hypervisor" : "kvm"
+    "vdcs" : "1",
+    "vapps" : "1",
+    "vms" : "2",
+    "template" : "Core"
+  }
+}

@@ -9,7 +9,7 @@ module Haki
     
     #Create vApps in a random VDC
     vdcs = []
-    for i in 1..n
+    for i in 1..n.to_i
       vdcs << cloud.create_virtual_datacenter(dc, ent, type, "vdc_#{i}", "default", "192.168.0.0", 24, "192.168.0.1")
     end
     vdcs
@@ -24,7 +24,7 @@ module Haki
     
     #Create vApps
     vapps = []
-    for i in 1..n
+    for i in 1..n.to_i
       vapps << cloud.create_virtual_appliance(vdcs[rand(vdcs.length)], "vapp_#{i}")
     end
     vapps
@@ -33,16 +33,17 @@ module Haki
   def create_nodes context, n, vapp, template
     cloud = CloudController.new context
     
-    #Get any VDC
-    vdc = cloud.list_virtual_datacenters[0]
+    #Get vApp's VDC
+    vdc = vapp.getVirtualDatacenter
 
     #Get template
     t = cloud.find_template(vdc, template)
+    raise Exception.new "Template with name #{template} not found for the VDC" unless t
     
     #Create VirtualMachines
     vms = []
-    for i in 1..n
-      vms << cloud.create_virtual_machine(vapp, t)
+    for i in 1..n.to_i
+      vms << cloud.create_virtual_machine(vapp, t) if t
     end
     vms
   end
